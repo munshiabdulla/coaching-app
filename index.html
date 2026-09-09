@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learn and Grow Coaching Center</title>
+<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Learn%20and%20Grow%20Coaching%22%2C%22short_name%22%3A%22L%26G%20Coaching%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f4f7f5%22%2C%22theme_color%22%3A%22%23116b3a%22%2C%22icons%22%3A%5B%5D%7D">
+<meta name="theme-color" content="#116b3a">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:#f4f7f5;color:#17351f}
+button,input,select{font:inherit}button{cursor:pointer}
+.header{background:linear-gradient(135deg,#116b3a,#1c8b4d);color:#fff;padding:16px;text-align:center;box-shadow:0 2px 8px #0002}
+.header h1{margin:0;font-size:24px}.header p{margin:5px 0 0;font-size:13px}
+.container{max-width:1100px;margin:auto;padding:15px}.card{background:#fff;border-radius:14px;padding:18px;margin:12px 0;box-shadow:0 3px 14px #0001}
+label{display:block;font-weight:bold;margin:10px 0 5px}input,select{width:100%;padding:11px;border:1px solid #ccd8cf;border-radius:9px;background:#fff}
+.btn{border:0;border-radius:9px;padding:11px 15px;background:#116b3a;color:#fff;margin:4px}.btn.yellow{background:#e5ad00;color:#222}.btn.red{background:#c62828}.btn.gray{background:#64706a}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.hidden{display:none}.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px;border-bottom:1px solid #e4ebe6;text-align:left}th{background:#edf6ef}
+.tablewrap{overflow:auto}.receipt{max-width:700px;margin:10px auto;border:3px solid #116b3a;border-radius:18px;padding:0;background:#fff;overflow:hidden;box-shadow:0 8px 24px #0002}
+.receipt-head{text-align:center;padding:20px 18px 15px;background:linear-gradient(135deg,#116b3a,#1f9a55);color:#fff}.receipt-logo{width:70px;height:70px;margin:0 auto 8px;border-radius:50%;background:linear-gradient(135deg,#ffd54a,#fff0a6);border:4px solid #fff;display:flex;align-items:center;justify-content:center;color:#116b3a;font-weight:900;font-size:27px;box-shadow:0 3px 10px #0003;overflow:hidden}.receipt-logo img{width:100%;height:100%;object-fit:cover}.receipt-head h2{margin:0;color:#fff;font-size:25px}.receipt-head h3{display:inline-block;margin:12px 0 0;padding:7px 18px;border-radius:20px;background:#ffd54a;color:#17351f}
+.receipt-body{padding:18px}.receipt .row{display:flex;justify-content:space-between;gap:15px;padding:10px 5px;border-bottom:1px dashed #ccc}.receipt .amountbox{margin-top:15px;padding:14px;border-radius:12px;background:#eef9f1;border:2px solid #e5ad00;display:flex;justify-content:space-between;font-size:21px;color:#116b3a}.success{background:#eaf7ee;border:1px solid #9ac9a9;padding:10px;border-radius:8px}
+@media print{body>*{display:none!important}#printArea{display:block!important}.receipt{border:2px solid #000;box-shadow:none}}
+
+.login-shell{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;background:linear-gradient(135deg,#eaf8ee,#fff8df)}
+.login-art{position:relative;min-height:100vh;background:linear-gradient(145deg,#116b3a,#2aa961);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.login-brand{width:110px;height:110px;border-radius:50%;background:#ffd54a;color:#116b3a;border:7px solid #fff;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:900;box-shadow:0 10px 25px #0003;overflow:hidden}.login-brand img{width:100%;height:100%;object-fit:cover}
+.login-art h1{font-size:42px;margin:20px 0 3px}.login-art p{font-size:21px;margin:0}.student{font-size:75px;position:absolute;bottom:70px;left:18%}.student.s2{left:auto;right:18%}.book{font-size:85px;position:absolute;top:13%;left:14%}.pencil{font-size:65px;position:absolute;top:19%;right:15%;transform:rotate(-25deg)}.cloud{position:absolute;font-size:70px;opacity:.35}.c1{top:8%;right:35%}.c2{bottom:25%;left:5%}
+.login-box{background:#fff;max-width:440px;width:86%;margin:auto;padding:38px;border-radius:24px;box-shadow:0 15px 45px #0002;text-align:left}.mini-logo{width:62px;height:62px;border-radius:50%;background:#ffd54a;color:#116b3a;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;margin:auto;overflow:hidden}.mini-logo img{width:100%;height:100%;object-fit:cover}
+.login-box h2{text-align:center;color:#116b3a;margin:15px 0 4px}.muted{color:#6b756e}.login-box .muted{text-align:center}.login-btn{width:100%;border:0;border-radius:12px;padding:14px;background:linear-gradient(135deg,#116b3a,#25a35c);color:#fff;font-weight:bold;font-size:16px;margin-top:18px}.login-error{color:#c62828;text-align:center;min-height:20px}
+.dash-wrap{max-width:1100px;margin:auto;padding:18px}.dash-hero{background:linear-gradient(135deg,#116b3a,#28a45d);border-radius:22px;padding:25px;color:#fff;display:flex;justify-content:space-between;align-items:center;overflow:hidden;box-shadow:0 8px 22px #0002}.dash-hero h2{font-size:30px;margin:6px 0}.hello{font-size:15px;opacity:.9}.dash-hero p{margin:0}.hero-illustration{font-size:55px;white-space:nowrap}.dash-actions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.action-btn{border:1px solid #d6e4d9;background:#fff;border-radius:11px;padding:10px 14px;color:#116b3a;font-weight:bold}.action-btn.logout{color:#c62828}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stat{background:#fff;border-radius:17px;padding:18px;display:flex;align-items:center;gap:15px;box-shadow:0 4px 15px #0001}.stat>span{font-size:42px}.stat small{display:block;color:#6d776f}.stat b{font-size:30px;color:#116b3a}.section-title{margin:25px 0 12px}
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.feature-card{background:#fff;border-radius:18px;padding:22px;box-shadow:0 4px 16px #0001;border:2px solid transparent;cursor:pointer;transition:.2s}.feature-card:hover{transform:translateY(-3px);border-color:#e5ad00}.feature-icon{font-size:45px}.feature-card h3{margin:10px 0 6px}.feature-card p{color:#68746c;font-size:13px;min-height:35px}.feature-card span{color:#116b3a;font-weight:bold}
+.user-card{max-width:600px;margin:20px auto;text-align:center}.user-avatar{font-size:55px}.user-card label,.user-card input{text-align:left}
+.month-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;background:#f9fbfa;padding:12px;border:1px solid #ccd8cf;border-radius:9px}
+.month-box label{font-weight:normal;margin:0;display:flex;align-items:center;gap:6px;cursor:pointer}
+@media(max-width:760px){.login-shell{display:block}.login-art{min-height:40vh}.login-box{margin:-25px auto 30px;position:relative}.stat-grid,.feature-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.stat-grid,.feature-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const KEY="lagcc_data_v2";
+let data=JSON.parse(localStorage.getItem(KEY)||'null')||{
+ sessions:["2026-27"], currentSession:"2026-27", students:[], payments:[], attendance:[],
+ user:{username:"admin",password:"admin"}, logoUrl:""
+};
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function money(n){return "₹"+Number(n||0).toFixed(2)}
+
+function getLogoHtml(txt){
+  if(data.logoUrl){ return `<img src="${esc(data.logoUrl)}" alt="Logo">`; }
+  return txt;
+}
+
+function header(){return `<div class="header"><h1>Learn and Grow Coaching Center</h1><p>Bargachi, Jagatballavpur, Howrah - 711410</p></div>`}
+
+function login(){
+document.getElementById("app").innerHTML=`
+<div class="login-shell">
+  <div class="login-art">
+    <div class="cloud c1">☁️</div><div class="cloud c2">☁️</div>
+    <div class="book">📚</div><div class="pencil">✏️</div>
+    <div class="student">👩‍🎓</div><div class="student s2">👨‍🎓</div>
+    <div class="login-brand">${getLogoHtml("L&G")}</div>
+    <h1>Learn and Grow</h1><p>Coaching Center</p>
+  </div>
+  <div class="login-box">
+    <div class="mini-logo">${getLogoHtml("L&G")}</div>
+    <h2>Welcome Back!</h2><p class="muted">Admin Panel এ Login করুন</p>
+    <label>User ID</label><input id="u" value="admin" autocomplete="username">
+    <label>Password</label><input id="p" type="password" autocomplete="current-password">
+    <button class="login-btn" onclick="doLogin()">🔐 Login to Dashboard</button>
+    <p id="err" class="login-error"></p>
+    <small>Default: admin / admin</small>
+  </div>
+</div>`}
+
+function doLogin(){if(u.value===data.user.username&&p.value===data.user.password)sessionPick();else err.textContent="Username বা Password ভুল।"}
+function sessionPick(){
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="card" style="max-width:520px;margin:35px auto">
+<h2>📚 Select Session</h2><label>Session</label><select id="sess">${data.sessions.map(s=>`<option ${s===data.currentSession?"selected":""}>${esc(s)}</option>`).join("")}</select>
+<button class="btn" onclick="enterSession()">Continue</button>
+<button class="btn gray" onclick="addSession()">+ New Session</button>
+</div></div>`}
+function enterSession(){data.currentSession=sess.value;save();dashboard()}
+function addSession(){let s=prompt("নতুন Session লিখুন (যেমন 2027-28):");if(s&& !data.sessions.includes(s)){data.sessions.push(s);data.currentSession=s;save();sessionPick()}}
+
+function dashboard(){
+let st=data.students.filter(x=>x.session===data.currentSession), pay=data.payments.filter(x=>x.session===data.currentSession);
+let today=new Date().toISOString().slice(0,10);
+let todayAtt=data.attendance.filter(x=>x.session===data.currentSession&&x.date===today);
+document.getElementById("app").innerHTML=header()+`
+<div class="dash-wrap">
+  <div class="dash-hero">
+    <div><span class="hello">Hello, Admin 👋</span><h2>Learn & Grow Dashboard</h2><p>Session: <b>${esc(data.currentSession)}</b></p></div>
+    <div class="hero-illustration">👨‍🎓 📖 👩‍🎓</div>
+  </div>
+  <div class="dash-actions">
+    <button class="action-btn" onclick="sessionPick()">📚 Change Session</button>
+    <button class="action-btn" onclick="userManagement()">👤 Credentials & Logo</button>
+    <button class="action-btn" onclick="backupRestoreModal()">💾 Backup & Restore</button>
+    <button class="action-btn logout" onclick="login()">↪ Logout</button>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><span>👨‍🎓</span><div><small>Total Students</small><b>${st.length}</b></div></div>
+    <div class="stat"><span>💰</span><div><small>Fee Receipts</small><b>${pay.length}</b></div></div>
+    <div class="stat"><span>📋</span><div><small>Today's Attendance</small><b>${todayAtt.length}</b></div></div>
+  </div>
+  <h3 class="section-title">Quick Access & Shortcuts</h3>
+  <div class="feature-grid">
+    <div class="feature-card" onclick="admission()"><div class="feature-icon">🎓</div><h3>Student Admission</h3><p>Add & manage coaching students</p><span>Open →</span></div>
+    <div class="feature-card" onclick="fees()"><div class="feature-icon">💳</div><h3>Fees Collection</h3><p>Collect fees & create receipt</p><span>Open →</span></div>
+    <div class="feature-card" onclick="feeReport()"><div class="feature-icon">📈</div><h3>Fees Collection Report</h3><p>Check total collection by class & date</p><span>Open →</span></div>
+    <div class="feature-card" onclick="attendance()"><div class="feature-icon">📝</div><h3>Attendance</h3><p>Mark daily student attendance</p><span>Open →</span></div>
+    <div class="feature-card" onclick="attendanceReport()"><div class="feature-icon">📊</div><h3>Attendance Report</h3><p>View past attendance records</p><span>Open →</span></div>
+    <div class="feature-card" onclick="userManagement()"><div class="feature-icon">🔐</div><h3>Settings & Logo</h3><p>Change credentials & set logo</p><span>Open →</span></div>
+  </div>
+</div>`}
+
+function userManagement(){
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>👤 Admin Settings & Logo</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card user-card"><div class="user-avatar">${getLogoHtml("🔐")}</div><h3>Settings & Credentials</h3><p class="muted">লোগো লিংক এবং পাসওয়ার্ড পরিবর্তন করুন</p>
+<label>Logo Image URL (Direct Link)</label><input id="logourl" value="${esc(data.logoUrl||"")}" placeholder="https://example.com/logo.png">
+<label>User ID</label><input id="newuid" value="${esc(data.user.username)}">
+<label>New Password</label><input id="newpass" type="password" placeholder="নতুন password লিখুন">
+<label>Confirm Password</label><input id="confpass" type="password" placeholder="আবার password লিখুন">
+<button class="btn" onclick="saveUser()">💾 Save Settings</button></div></div>`}
+
+function saveUser(){
+let id=newuid.value.trim(), pw=newpass.value, cp=confpass.value, lg=logourl.value.trim();
+if(!id||!pw)return alert("User ID এবং Password দুটোই দিন।");
+if(pw!==cp)return alert("Password দুটো মিলছে না।");
+data.user={username:id,password:pw};
+data.logoUrl=lg;
+save();
+alert("Settings updated successfully.");
+dashboard();
+}
+
+function backupRestoreModal(){
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>💾 Backup & Restore Data</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card">
+  <h3>Phone Memory-তে ডেটা সেভ (Backup) করুন</h3>
+  <p class="muted">নিচের বাটনে ক্লিক করলে আপনার সমস্ত ডেটা একটি ফাইলে আপনার ফোনের Downloads ফোল্ডারে সেভ হয়ে যাবে।</p>
+  <button class="btn" onclick="downloadBackup()">📥 Download Backup File</button>
+</div>
+<div class="card">
+  <h3>আগের ডেটা ফিরিয়ে আনুন (Restore)</h3>
+  <p class="muted">আগের ব্যাকআপ ফাইল সিলেক্ট করে ডেটা রিস্টোর করুন।</p>
+  <label>Select Backup File (.json)</label><input type="file" id="restoreFile" accept=".json">
+  <button class="btn yellow" onclick="restoreBackup()">📤 Restore Data</button>
+</div></div>`;
+}
+
+function downloadBackup(){
+let dataStr="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(data));
+let dlAnchor=document.createElement('a');dlAnchor.setAttribute("href",dataStr);
+dlAnchor.setAttribute("download","Coaching_Data_Backup_"+new Date().toISOString().slice(0,10)+".json");
+document.body.appendChild(dlAnchor);dlAnchor.click();dlAnchor.remove();
+alert("Backup file সফলভাবে ডাউনলোড হয়েছে।");
+}
+
+function restoreBackup(){
+let fileInput=document.getElementById("restoreFile");
+if(fileInput.files.length===0)return alert("আগে একটি ব্যাকআপ ফাইল সিলেক্ট করুন।");
+let reader=new FileReader();
+reader.onload=function(e){
+  try{
+    let parsed=JSON.parse(e.target.result);
+    if(parsed && parsed.students){ data=parsed; save(); alert("ডেটা সফলভাবে রিস্টোর করা হয়েছে!"); dashboard(); }
+    else { alert("ফাইলটি সঠিক নয়।"); }
+  }catch(err){ alert("ফাইল পড়তে সমস্যা হয়েছে।"); }
+};
+reader.readAsText(fileInput.files[0]);
+}
+
+function admission(editId=null){
+let st=data.students.filter(x=>x.session===data.currentSession);
+let sData = editId ? st.find(x=>x.id===editId) : null;
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>👨‍🎓 Student Admission & Management</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card">
+  <h3>${editId ? 'Edit Student Details' : 'Add New Student'}</h3>
+  <input type="hidden" id="edit_id" value="${sData?sData.id:''}">
+  <div class="grid">
+    <div><label>Student Name</label><input id="sn" value="${sData?esc(sData.name):''}"></div>
+    <div><label>Guardian Name</label><input id="gn" value="${sData?esc(sData.guardian):''}"></div>
+    <div><label>Mobile / WhatsApp</label><input id="mob" inputmode="tel" value="${sData?esc(sData.mobile):''}"></div>
+    <div><label>Class / Batch</label><input id="cl" value="${sData?esc(sData.className):''}"></div>
+    <div><label>Monthly Fees</label><input id="mf" type="number" min="0" value="${sData?sData.monthly:''}"></div>
+  </div>
+  <button class="btn" style="margin-top:10px" onclick="saveStudent()">${editId ? 'Update Student' : 'Save Student'}</button>
+  ${editId ? '<button class="btn gray" onclick="admission()">Cancel</button>' : ''}
+</div>
+<div class="card">
+  <h3>All Students List</h3>
+  <div class="tablewrap">
+    <table>
+      <tr><th>ID</th><th>Name</th><th>Guardian</th><th>Mobile</th><th>Class</th><th>Fees</th><th>Action</th></tr>
+      ${st.map(x=>`<tr><td>${x.id}</td><td><b>${esc(x.name)}</b></td><td>${esc(x.guardian)}</td><td>${esc(x.mobile)}</td><td>${esc(x.className)}</td><td>${money(x.monthly)}</td><td><button class="btn yellow" onclick="admission('${x.id}')">Edit</button> <button class="btn red" onclick="deleteStudent('${x.id}')">Delete</button></td></tr>`).join("")}
+    </table>
+  </div>
+</div></div>`}
+
+function saveStudent(){
+let idVal = document.getElementById("edit_id").value;
+let nameVal = sn.value.trim();
+if(!nameVal)return alert("Student Name দিন");
+if(idVal){
+  let s = data.students.find(x=>x.id===idVal);
+  if(s){ s.name = nameVal; s.guardian = gn.value.trim(); s.mobile = mob.value.trim(); s.className = cl.value.trim(); s.monthly = Number(mf.value||0); save(); alert("Student updated."); }
+} else {
+  let id="ST-"+String(Date.now()).slice(-6);
+  data.students.push({id,name:nameVal,guardian:gn.value.trim(),mobile:mob.value.trim(),className:cl.value.trim(),monthly:Number(mf.value||0),session:data.currentSession});
+  save(); alert("Student admission saved.");
+}
+admission();
+}
+
+function deleteStudent(id){
+if(confirm("আপনি কি নিশ্চিতভাবে এই ছাত্র/ছাত্রীকে ডিলিট করতে চান?")){
+  data.students = data.students.filter(x=>x.id!==id);
+  save(); alert("Student deleted."); admission();
+}
+}
+
+const ALL_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+function fees(){
+let st=data.students.filter(x=>x.session===data.currentSession), pay=data.payments.filter(x=>x.session===data.currentSession);
+let classes=[...new Set(st.map(x=>x.className))].filter(Boolean);
+let selectedClass = window.selectedFeeClass || classes[0] || "";
+let classStudents = st.filter(x=>x.className===selectedClass);
+let currentStudent = classStudents[0] || null;
+
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>💰 Fees Collection</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card">
+  <div class="grid">
+    <div>
+      <label>Select Class / Batch</label>
+      <select id="feeClass" onchange="window.selectedFeeClass=this.value; fees()">
+        ${classes.length===0?`<option>No class found</option>`:classes.map(c=>`<option ${c===selectedClass?"selected":""}>${esc(c)}</option>`).join("")}
+      </select>
+    </div>
+    <div>
+      <label>Select Student</label>
+      <select id="student" onchange="updateFeeDetails(this.value)">
+        ${classStudents.length===0?`<option>No students in this class</option>`:classStudents.map(x=>`<option value="${x.id}" ${currentStudent && x.id===currentStudent.id?"selected":""}>${esc(x.name)} (${x.id})</option>`).join("")}
+      </select>
+    </div>
+    <div><label>Collection Date</label><input id="paydate" type="date" value="${new Date().toISOString().slice(0,10)}"></div>
+    <div><label>Payment Mode</label><select id="mode"><option>Cash</option><option>UPI</option><option>Bank</option></select></div>
+  </div>
+
+  <label style="margin-top:15px">Select Month(s) - একাধিক মাস সিলেক্ট করতে পারেন:</label>
+  <div class="month-box" id="monthBox">
+    ${ALL_MONTHS.map((m,i)=>`<label><input type="checkbox" name="fee_month" value="${m}" onchange="calculateTotalAmt()" ${i===new Date().getMonth()?"checked":""}> ${m}</label>`).join("")}
+  </div>
+
+  <div class="grid" style="margin-top:12px">
+    <div><label>Discount / Concession (₹)</label><input id="discount" type="number" min="0" value="0" oninput="calculateTotalAmt()"></div>
+    <div><label>Advance Payment / Extra (₹)</label><input id="advance" type="number" min="0" value="0" oninput="calculateTotalAmt()"></div>
+    <div><label>Total Payable Amount (₹)</label><input id="amt" type="number" min="0" style="font-weight:bold;color:#116b3a;background:#eef9f1" readonly></div>
+  </div>
+
+  <button class="btn" style="margin-top:15px" onclick="collectFee()">Collect Fees & Create Receipt</button>
+</div>
+<div class="card"><h3>Recent Payments</h3><div class="tablewrap"><table><tr><th>Receipt</th><th>Date</th><th>Student</th><th>Month(s)</th><th>Amount</th><th>Action</th></tr>${pay.slice().reverse().map(x=>`<tr><td>${x.receipt}</td><td>${x.date}</td><td><b>${esc(x.studentName)}</b></td><td>${esc(x.month)}</td><td>${money(x.amount)}</td><td><button class="btn yellow" onclick="showReceipt('${x.receipt}')">Receipt</button></td></tr>`).join("")}</table></div></div></div>`;
+setTimeout(calculateTotalAmt, 50);
+}
+
+function updateFeeDetails(studentId){
+calculateTotalAmt();
+}
+
+function calculateTotalAmt(){
+let studentId = document.getElementById("student")?.value;
+let s = data.students.find(x=>x.id===studentId);
+let baseMonthly = s ? s.monthly : 0;
+
+let checkedMonths = document.querySelectorAll('input[name="fee_month"]:checked');
+let monthCount = checkedMonths.length;
+
+let disc = Number(document.getElementById("discount")?.value || 0);
+let adv = Number(document.getElementById("advance")?.value || 0);
+
+let total = (baseMonthly * monthCount) - disc + adv;
+if(total < 0) total = 0;
+
+let amtInput = document.getElementById("amt");
+if(amtInput) amtInput.value = total;
+}
+
+function collectFee(){
+let s=data.students.find(x=>x.id===student.value);if(!s)return alert("আগে student সিলেক্ট করুন");
+let checkedMonths = Array.from(document.querySelectorAll('input[name="fee_month"]:checked')).map(el=>el.value);
+if(checkedMonths.length===0)return alert("কমপক্ষে একটি মাস সিলেক্ট করুন");
+
+let amount=Number(amt.value||0);
+let r="LGC-"+new Date().getFullYear()+"-"+String(data.payments.length+1).padStart(4,"0");
+let monthStr = checkedMonths.join(", ");
+let discVal = Number(document.getElementById("discount").value||0);
+let advVal = Number(document.getElementById("advance").value||0);
+
+let x={receipt:r,date:new Date(paydate.value+"T12:00:00").toLocaleDateString("en-IN"),studentId:s.id,studentName:s.name,guardian:s.guardian,className:s.className,mobile:s.mobile,month:monthStr,amount,discount:discVal,advance:advVal,mode:mode.value,session:data.currentSession};
+data.payments.push(x);save();showReceipt(r);
+}
+
+function showReceipt(r){
+window.currentReceipt=r;
+let x=data.payments.find(p=>p.receipt===r);if(!x)return;
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>🧾 Fees Receipt</h2><button class="btn gray" onclick="fees()">← Fees</button></div>
+<div id="printArea"><div class="receipt" id="receiptCard"><div class="receipt-head"><div class="receipt-logo">${getLogoHtml("L&G")}</div><h2>Learn and Grow Coaching Center</h2><div>Bargachi, Jagatballavpur, Howrah - 711410</div><h3>FEES RECEIPT</h3></div>
+<div class="receipt-body">
+  <div class="row"><b>Receipt No.</b><span>${x.receipt}</span></div>
+  <div class="row"><b>Collection Date</b><span>${x.date}</span></div>
+  <div class="row"><b>Student Name</b><span style="font-size:18px;font-weight:900;color:#116b3a">${esc(x.studentName)}</span></div>
+  <div class="row"><b>Guardian Name</b><span>${esc(x.guardian)}</span></div>
+  <div class="row"><b>Class / Batch</b><span>${esc(x.className)}</span></div>
+  <div class="row"><b>Fees Month(s)</b><span>${esc(x.month)}</span></div>
+  ${x.discount ? `<div class="row"><b>Discount / Concession</b><span>- ${money(x.discount)}</span></div>` : ''}
+  ${x.advance ? `<div class="row"><b>Advance / Extra</b><span>+ ${money(x.advance)}</span></div>` : ''}
+  <div class="row"><b>Payment Mode</b><span>${x.mode}</span></div>
+  <div class="amountbox"><b>Amount Paid</b><strong>${money(x.amount)}</strong></div>
+  <p style="text-align:center;margin:24px 0 4px;color:#116b3a;font-weight:bold">Thank you for your payment ❤️</p>
+  <p style="text-align:center;margin:0;color:#777;font-size:12px">This is a computer generated receipt.</p>
+</div></div></div>
+<div style="text-align:center"><button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button><button class="btn yellow" onclick="saveReceiptPhoto()">🖼️ Save Receipt Photo</button><button class="btn" onclick="shareWhatsApp('${x.receipt}')">📲 WhatsApp</button></div></div>`}
+
+function saveReceiptPhoto(){
+ const x=data.payments.find(p=>p.receipt===window.currentReceipt);
+ if(!x)return alert("Receipt data পাওয়া যায়নি।");
+ const c=document.createElement("canvas"), ctx=c.getContext("2d");
+ const W=1200,H=1550; c.width=W;c.height=H;
+ ctx.fillStyle="#f4f7f5";ctx.fillRect(0,0,W,H);
+ let g=ctx.createLinearGradient(0,0,W,260);g.addColorStop(0,"#116b3a");g.addColorStop(1,"#1f9a55");
+ ctx.fillStyle=g;ctx.fillRect(0,0,W,260);
+
+ function drawCanvasContent(imgObj){
+   ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(100,115,58,0,Math.PI*2);ctx.fill();
+   if(imgObj){
+     ctx.save();ctx.beginPath();ctx.arc(100,115,52,0,Math.PI*2);ctx.clip();
+     ctx.drawImage(imgObj,42,57,116,116);ctx.restore();
+   } else {
+     ctx.fillStyle="#116b3a";ctx.font="bold 30px Arial";ctx.textAlign="center";ctx.fillText("L&G",100,126);
+   }
+   ctx.textAlign="left";ctx.fillStyle="#fff";ctx.font="bold 42px Arial";ctx.fillText("Learn and Grow Coaching Center",190,105);
+   ctx.font="24px Arial";ctx.fillText("Bargachi, Jagatballavpur, Howrah - 711410",190,150);
+   ctx.fillStyle="#ffd54a";ctx.roundRect(430,185,340,52,26);ctx.fill();
+   ctx.fillStyle="#17351f";ctx.font="bold 27px Arial";ctx.textAlign="center";ctx.fillText("FEES RECEIPT",600,220);
+   ctx.fillStyle="#fff";ctx.fillRect(55,300,1090,1130);
+   ctx.strokeStyle="#116b3a";ctx.lineWidth=5;ctx.strokeRect(55,300,1090,1130);
+   ctx.textAlign="left";
+   
+   let rows=[
+    ["Receipt No.",x.receipt],["Collection Date",x.date],["Student Name",x.studentName],
+    ["Guardian Name",x.guardian||"-"],["Class / Batch",x.className||"-"],["Fees Month(s)",x.month]
+   ];
+   if(x.discount) rows.push(["Discount", "- "+money(x.discount)]);
+   if(x.advance) rows.push(["Advance/Extra", "+ "+money(x.advance)]);
+   rows.push(["Payment Mode", x.mode]);
+
+   let y=360;
+   rows.forEach(([a,b], idx)=>{
+    ctx.fillStyle="#17351f";ctx.font="26px Arial";ctx.fillText(a,100,y);
+    if(idx===2){ ctx.font="bold 30px Arial"; ctx.fillStyle="#116b3a"; }
+    ctx.fillText(String(b),520,y);
+    ctx.strokeStyle="#cdd9d0";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(100,y+18);ctx.lineTo(1100,y+18);ctx.stroke();
+    y+=82;
+   });
+   ctx.fillStyle="#eef9f1";ctx.fillRect(90,y+10,1020,95);ctx.strokeStyle="#e5ad00";ctx.lineWidth=4;ctx.strokeRect(90,y+10,1020,95);
+   ctx.fillStyle="#116b3a";ctx.font="bold 32px Arial";ctx.fillText("Amount Paid",125,y+70);
+   ctx.textAlign="right";ctx.font="bold 38px Arial";ctx.fillText(money(x.amount),1070,y+70);
+   ctx.textAlign="center";ctx.fillStyle="#116b3a";ctx.font="bold 25px Arial";ctx.fillText("Thank you for your payment ❤️",600,1350);
+   ctx.font="18px Arial";ctx.fillStyle="#777";ctx.fillText("This is a computer generated receipt.",600,1390);
+   
+   const dl=document.createElement("a");dl.download="Fees_Receipt_"+x.receipt+".png";dl.href=c.toDataURL("image/png");dl.click();
+   alert("Receipt photo তৈরি হয়েছে। আপনার Downloads ফোল্ডারে পাবেন।");
+ }
+
+ if(data.logoUrl){
+   let img=new Image();img.crossOrigin="anonymous";
+   img.onload=()=>drawCanvasContent(img);img.onerror=()=>drawCanvasContent(null);
+   img.src=data.logoUrl;
+ } else { drawCanvasContent(null); }
+}
+
+function shareWhatsApp(r){
+let x=data.payments.find(p=>p.receipt===r);
+let msg=`Learn and Grow Coaching Center%0AFees Receipt: ${x.receipt}%0AStudent: ${encodeURIComponent(x.studentName)}%0AMonth(s): ${encodeURIComponent(x.month)}%0AAmount Paid: ${money(x.amount)}%0ADate: ${x.date}%0AThank you.`;
+let num=(x.mobile||"").replace(/\D/g,"");
+let formattedNum = num ? (num.startsWith("91") ? num : "91" + num) : "";
+let url = formattedNum ? `whatsapp://send?phone=${formattedNum}&text=${msg}` : `whatsapp://send?text=${msg}`;
+window.location.href = url;
+}
+
+function feeReport(){
+let st=data.students.filter(x=>x.session===data.currentSession);
+let classes=[...new Set(st.map(x=>x.className))].filter(Boolean);
+let pay=data.payments.filter(x=>x.session===data.currentSession);
+
+let selClass = window.reportClass || "ALL";
+let dFrom = window.reportFrom || new Date().toISOString().slice(0,8)+"01";
+let dTo = window.reportTo || new Date().toISOString().slice(0,10);
+
+let filtered = pay.filter(p=>{
+  let matchClass = (selClass==="ALL" || p.className===selClass);
+  // convert payment date string format back to YYYY-MM-DD for comparison if needed, or filter by date
+  return matchClass;
+});
+
+let totalCollection = filtered.reduce((sum, item)=>sum + item.amount, 0);
+
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>📈 Fees Collection Report</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card">
+  <div class="grid">
+    <div>
+      <label>Filter by Class</label>
+      <select id="repClass" onchange="window.reportClass=this.value; feeReport()">
+        <option value="ALL">-- All Classes --</option>
+        ${classes.map(c=>`<option ${c===selClass?"selected":""}>${esc(c)}</option>`).join("")}
+      </select>
+    </div>
+    <div><label>From Date</label><input id="repFrom" type="date" value="${dFrom}" onchange="window.reportFrom=this.value; feeReport()"></div>
+    <div><label>To Date</label><input id="repTo" type="date" value="${dTo}" onchange="window.reportTo=this.value; feeReport()"></div>
+  </div>
+  <div style="margin-top:15px;padding:15px;background:#eef9f1;border:2px solid #116b3a;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:18px;font-weight:bold;color:#116b3a">Total Collection in this range:</span>
+    <span style="font-size:24px;font-weight:bold;color:#116b3a">${money(totalCollection)}</span>
+  </div>
+</div>
+<div class="card">
+  <h3>Transaction Details</h3>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Receipt</th><th>Date</th><th>Student Name</th><th>Class</th><th>Month(s)</th><th>Amount</th></tr>
+      ${filtered.length===0?`<tr><td colspan="6" style="text-align:center;color:#777">কোনো রেকর্ড পাওয়া যায়নি।</td></tr>`:filtered.map(x=>`<tr><td>${x.receipt}</td><td>${x.date}</td><td><b>${esc(x.studentName)}</b></td><td>${esc(x.className)}</td><td>${esc(x.month)}</td><td>${money(x.amount)}</td></tr>`).join("")}
+    </table>
+  </div>
+</div></div>`;
+}
+
+function attendance(){
+let st=data.students.filter(x=>x.session===data.currentSession), today=new Date().toISOString().slice(0,10);
+let classes=[...new Set(st.map(x=>x.className))].filter(Boolean);
+let selectedClass = window.selectedAttClass || classes[0] || "";
+let classStudents = st.filter(x=>x.className===selectedClass);
+
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>📋 Attendance</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card">
+  <div class="grid">
+    <div><label>Date</label><input id="adate" type="date" value="${today}"></div>
+    <div>
+      <label>Select Class / Batch</label>
+      <select id="attClass" onchange="window.selectedAttClass=this.value; attendance()">
+        ${classes.length===0?`<option>No class found</option>`:classes.map(c=>`<option ${c===selectedClass?"selected":""}>${esc(c)}</option>`).join("")}
+      </select>
+    </div>
+  </div>
+  <div class="tablewrap" style="margin-top:15px">
+    <table>
+      <tr><th>Student Name</th><th>Class</th><th>Status</th></tr>
+      ${classStudents.length===0?`<tr><td colspan="3" style="text-align:center;color:#777">এই ক্লাসে কোনো ছাত্র-ছাত্রী নেই।</td></tr>`:classStudents.map(x=>{let a=data.attendance.find(z=>z.studentId===x.id&&z.date===today&&z.session===data.currentSession);return `<tr><td><b>${esc(x.name)}</b> (${x.id})</td><td>${esc(x.className)}</td><td><select id="a_${x.id}"><option ${a?.status==="Present"?"selected":""}>Present</option><option ${a?.status==="Absent"?"selected":""}>Absent</option></select></td></tr>`}).join("")}
+    </table>
+  </div>
+  <button class="btn" style="margin-top:15px" onclick="saveAttendance()">Save Attendance</button>
+</div></div>`}
+
+function saveAttendance(){let date=adate.value;if(!date)return;let st=data.students.filter(x=>x.session===data.currentSession&&x.className===(window.selectedAttClass||''));st.forEach(x=>{data.attendance=data.attendance.filter(a=>!(a.studentId===x.id&&a.date===date&&a.session===data.currentSession));data.attendance.push({studentId:x.id,studentName:x.name,date,status:document.getElementById("a_"+x.id).value,session:data.currentSession})});save();alert("Attendance saved for this class.");dashboard()}
+
+function attendanceReport(){
+let att=data.attendance.filter(x=>x.session===data.currentSession);
+let dates=[...new Set(att.map(x=>x.date))].sort().reverse();
+let selectedDate=window.selectedReportDate || dates[0] || new Date().toISOString().slice(0,10);
+let filteredAtt=att.filter(x=>x.date===selectedDate);
+document.getElementById("app").innerHTML=header()+`<div class="container"><div class="topbar"><h2>📊 Attendance Report</h2><button class="btn gray" onclick="dashboard()">← Dashboard</button></div>
+<div class="card"><div class="grid"><div><label>Select Date</label><select id="repDate" onchange="window.selectedReportDate=this.value; attendanceReport()">${dates.length===0?`<option>No records found</option>`:dates.map(d=>`<option ${d===selectedDate?"selected":""}>${d}</option>`).join("")}</select></div></div></div>
+<div class="card"><h3>Report for Date: ${selectedDate}</h3><div class="tablewrap"><table><tr><th>Student Name</th><th>Status</th><th>Date</th></tr>${filteredAtt.length===0?`<tr><td colspan="3" style="text-align:center;color:#777">এই তারিখে কোনো উপস্থিতি রেকর্ড করা হয়নি।</td></tr>`:filteredAtt.map(x=>`<tr><td><b>${esc(x.studentName)}</b></td><td><b style="color:${x.status==='Present'?'#116b3a':'#c62828'}">${x.status}</b></td><td>${x.date}</td></tr>`).join("")}</table></div></div></div>`;
+}
+
+login();
+</script>
+</body>
+</html>
